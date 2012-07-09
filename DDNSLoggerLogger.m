@@ -54,6 +54,9 @@ static Logger *_DDNSLogger_logger = nil;
 
     // configure the logger
     LoggerSetOptions(_DDNSLogger_logger, kLoggerOption_BufferLogsUntilConnection | kLoggerOption_BrowseBonjour | kLoggerOption_BrowseOnlyLocalDomain );
+#if DEBUG && defined(LOG_BONJOUR_NAME)
+    LoggerSetupBonjour(_DDNSLogger_logger, NULL, CFSTR(LOG_BONJOUR_NAME));
+#endif
     LoggerStart(_DDNSLogger_logger);
 	}
 	return self;
