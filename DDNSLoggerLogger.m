@@ -23,19 +23,23 @@ static Logger *_DDNSLogger_logger = nil;
  *
  * This method may also be called directly (assumably by accident), hence the safety mechanism.
  **/
-+ (void)initialize
-{
-	static BOOL initialized = NO;
-	if (!initialized)
-	{
-		initialized = YES;
-
-		sharedInstance = [[DDNSLoggerLogger alloc] init];
-	}
-}
+//+ (void)initialize
+//{
+//	static BOOL initialized = NO;
+//	if (!initialized)
+//	{
+//		initialized = YES;
+//		sharedInstance = [[DDNSLoggerLogger alloc] init];
+//	}
+//}
 
 + (DDNSLoggerLogger *)sharedInstance
 {
+    @synchronized(self) {
+        if (sharedInstance == nil) {
+            sharedInstance = [[self alloc] init];
+        }
+    }
 	return sharedInstance;
 }
 
